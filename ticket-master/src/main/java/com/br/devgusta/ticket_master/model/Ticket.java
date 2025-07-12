@@ -26,6 +26,8 @@ public class Ticket {
 
     private String level;
 
+    private String ticketStatus;
+
     @Column(updatable = false)
     private LocalDateTime localDateTime;
 
