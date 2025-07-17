@@ -17,12 +17,13 @@ public class AnalystController {
     @Autowired
     AnalystService analystService;
 
+    @PostMapping
     public ResponseEntity<AnalystResponseDTO> createAnalyst(@RequestBody AnalystRequestDTO analystDTO){
         AnalystResponseDTO createdAnalyst = analystService.createAnalyst(analystDTO);
         return ResponseEntity.ok(createdAnalyst);
 
     }
-
+    @GetMapping
     public ResponseEntity<List<AnalystResponseDTO>> getAllAnalysts(){
         List<AnalystResponseDTO> analysts = analystService.getAllAnalysts();
         return ResponseEntity.ok(analysts);
@@ -42,7 +43,7 @@ public class AnalystController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAnalyst(Long id){
+    public ResponseEntity<Void> deleteAnalyst(@PathVariable Long id){
         analystService.deleteAnalyst(id);
         return ResponseEntity.noContent().build();
     }

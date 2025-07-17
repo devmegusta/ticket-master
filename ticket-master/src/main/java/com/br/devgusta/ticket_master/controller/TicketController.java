@@ -16,7 +16,7 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<TicketReponseDTO> createTicket(@RequestBody TicketRequestDTO ticketDTO){
         TicketReponseDTO createdTicket = ticketService.createTicket(ticketDTO);
         return ResponseEntity.ok(createdTicket);
@@ -43,7 +43,7 @@ public class TicketController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTicket(Long id){
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long id){
         ticketService.deleteTicket(id);
         return ResponseEntity.noContent().build();
     }

@@ -19,6 +19,7 @@ public class ClientService {
 
         Client client = new Client();
         client.setName(dto.getName());
+        client.setClientAd(dto.getClientAd());
         client.setEmail(dto.getEmail());
         client.setDepartment(dto.getDepartment());
 
@@ -49,6 +50,7 @@ public class ClientService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + id +
                         " .Verifique o id fornecido e tente novamente!"));
         client.setName(dto.getName());
+        client.setClientAd(dto.getClientAd());
         client.setEmail(dto.getEmail());
         client.setDepartment(dto.getDepartment());
 

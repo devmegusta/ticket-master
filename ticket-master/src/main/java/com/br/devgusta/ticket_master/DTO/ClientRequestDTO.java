@@ -11,6 +11,7 @@ import lombok.Setter;
 
 public class ClientRequestDTO {
     private String name;
+    private String clientAd;
     private String email;
     private String department;
 }
