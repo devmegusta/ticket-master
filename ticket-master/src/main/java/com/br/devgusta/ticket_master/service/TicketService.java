@@ -70,6 +70,7 @@ public class TicketService {
 
         ticket.setTicketTitle(dto.getTicketTitle());
         ticket.setTicketBody(dto.getTicketBody());
+        ticket.setLevel(dto.getLevel());
         ticket.setTicketStatus(dto.getTicketStatus());
 
         Ticket updatedTicket = ticketRepository.save(ticket);

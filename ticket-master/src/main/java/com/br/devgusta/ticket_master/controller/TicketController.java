@@ -2,6 +2,9 @@ package com.br.devgusta.ticket_master.controller;
 
 import com.br.devgusta.ticket_master.DTO.TicketReponseDTO;
 import com.br.devgusta.ticket_master.DTO.TicketRequestDTO;
+import com.br.devgusta.ticket_master.model.Client;
+import com.br.devgusta.ticket_master.repository.ClientRepository;
+import com.br.devgusta.ticket_master.service.EmailService;
 import com.br.devgusta.ticket_master.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +19,17 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping
     public ResponseEntity<TicketReponseDTO> createTicket(@RequestBody TicketRequestDTO ticketDTO){
         TicketReponseDTO createdTicket = ticketService.createTicket(ticketDTO);
         return ResponseEntity.ok(createdTicket);
+
     }
 
     @GetMapping

@@ -21,7 +21,7 @@ public class Ticket {
 
     private String ticketTitle;
 
-    @Lob
+    @Column(name = "ticket_body", columnDefinition = "TEXT")
     private String ticketBody;
 
     private String level;
