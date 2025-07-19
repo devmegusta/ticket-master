@@ -7,10 +7,9 @@ import com.br.devgusta.ticket_master.model.Ticket;
 import com.br.devgusta.ticket_master.repository.AnalystRepository;
 import com.br.devgusta.ticket_master.repository.ClientRepository;
 import com.br.devgusta.ticket_master.repository.TicketRepository;
-import lombok.extern.java.Log;
+import com.br.devgusta.ticket_master.service.notification.TicketNotificationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,17 +22,17 @@ public class TicketService {
     ClientRepository clientRepository;
     @Autowired
     AnalystRepository analystRepository;
+    @Autowired
+    TicketNotificationsService ticketNotificationsService;
 
     public TicketReponseDTO createTicket(TicketRequestDTO dto){
         Ticket ticket = new Ticket();
         Client client = clientRepository.findById(dto.getClientId())
                         .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o id: "
                                 + dto.getClientId()));
-
         Analyst analyst = analystRepository.findById(dto.getAnalystId())
                         .orElseThrow(() -> new RuntimeException("Analista não encontrado com o id: "
                                 + dto.getAnalystId()));
-
         ticket.setTicketTitle(dto.getTicketTitle());
         ticket.setTicketBody(dto.getTicketBody());
         ticket.setLevel(dto.getLevel());
@@ -41,8 +40,8 @@ public class TicketService {
         ticket.setLocalDateTime(dto.getLocalDateTime());
         ticket.setClient(client);
         ticket.setAnalyst(analyst);
-
         Ticket savedTicket = ticketRepository.save(ticket);
+        ticketNotificationsService.sendCreatedNotificationEmail(savedTicket);
         return new TicketReponseDTO(savedTicket);
     }
 
@@ -50,30 +49,36 @@ public class TicketService {
         Ticket ticket = ticketRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ticket não encontrado pelo o id " + id +
                         " .Verifique o id fornecido e tente novamente!"));
-
         return new TicketReponseDTO(ticket);
     }
 
     public List<TicketReponseDTO> getAllTickets(){
-
         List<Ticket> tickets = ticketRepository.findAll();
         return tickets.stream()
                 .map(TicketReponseDTO::new)
                 .collect(Collectors.toList());
-
     }
 
     public TicketReponseDTO updateTicket (Long id, TicketRequestDTO dto){
         Ticket ticket = ticketRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ticket não encontrado pelo o id " + id +
                         " .Verifique o id fornecido e tente novamente!"));
-
         ticket.setTicketTitle(dto.getTicketTitle());
         ticket.setTicketBody(dto.getTicketBody());
         ticket.setLevel(dto.getLevel());
         ticket.setTicketStatus(dto.getTicketStatus());
 
+        if (dto.getAnalystId() != null){
+            Analyst analyst = analystRepository.findById(dto.getAnalystId())
+                    .orElseThrow(() -> new RuntimeException("Analista não encontrado pelo o id " + dto.getAnalystId()));
+        }
         Ticket updatedTicket = ticketRepository.save(ticket);
+
+        ticketNotificationsService.sendUpdatedNotificationEmail(updatedTicket);
+
+        if (dto.getAnalystId() != null){
+            ticketNotificationsService.sendAssignedNotificationEmail(updatedTicket);
+        }
         return new TicketReponseDTO(updatedTicket);
     }
 
