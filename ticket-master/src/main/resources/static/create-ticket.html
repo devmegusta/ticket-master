@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Criar Chamado - Ticket Master</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005fa3;
+        }
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Criar Novo Chamado</h2>
+
+<form id="ticketForm">
+    <label for="ticketTitle">Título do Chamado</label>
+    <input type="text" id="ticketTitle" name="ticketTitle" required />
+
+    <label for="ticketBody">Descrição</label>
+    <textarea id="ticketBody" name="ticketBody" rows="5" required></textarea>
+
+    <label for="ticketLevel">Nível de Prioridade</label>
+    <select id="ticketLevel" name="ticketLevel" required>
+        <option value="" disabled selected>Selecione o nível</option>
+        <option value="baixo">Baixo</option>
+        <option value="médio">Médio</option>
+        <option value="alto">Alto</option>
+    </select>
+
+    <label for="clientName">Nome do Cliente</label>
+    <input type="text" id="clientName" name="clientName" required />
+
+    <label for="analystName">Nome do Analista</label>
+    <input type="text" id="analystName" name="analystName" required />
+
+    <button type="submit">Criar Chamado</button>
+</form>
+
+<div id="message"></div>
+
+<script>
+    const form = document.getElementById('ticketForm');
+    const messageDiv = document.getElementById('message');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const data = {
+            ticketTitle: form.ticketTitle.value,
+            ticketBody: form.ticketBody.value,
+            ticketLevel: form.ticketLevel.value,
+            clientName: form.clientName.value,
+            analystName: form.analystName.value
+        };
+
+        try {
+            const response = await fetch('/api/tickets', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                messageDiv.style.color = 'green';
+                messageDiv.textContent = 'Chamado criado com sucesso!';
+                form.reset();
+            } else {
+                const errorData = await response.json();
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = `Erro: ${errorData.message || 'Não foi possível criar o chamado.'}`;
+            }
+        } catch (error) {
+            messageDiv.style.color = 'red';
+            messageDiv.textContent = 'Erro de conexão. Tente novamente.';
+        }
+    });
+</script>
+
+</body>
+</html>
