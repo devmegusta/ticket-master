@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Criar Chamado - Ticket Master</title>
+    <title>Criar Chamado</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,6 +49,7 @@
             margin-top: 20px;
             font-weight: bold;
             text-align: center;
+            color: green;
         }
     </style>
 </head>
@@ -56,71 +57,39 @@
 
 <h2 style="text-align:center;">Criar Novo Chamado</h2>
 
-<form id="ticketForm">
+<form method="POST" action="/ticket-master/tickets">
     <label for="ticketTitle">Título do Chamado</label>
     <input type="text" id="ticketTitle" name="ticketTitle" required />
 
     <label for="ticketBody">Descrição</label>
     <textarea id="ticketBody" name="ticketBody" rows="5" required></textarea>
 
-    <label for="ticketLevel">Nível de Prioridade</label>
-    <select id="ticketLevel" name="ticketLevel" required>
+    <label for="level">Nível de Prioridade</label>
+    <select id="level" name="level" required>
         <option value="" disabled selected>Selecione o nível</option>
         <option value="baixo">Baixo</option>
         <option value="médio">Médio</option>
         <option value="alto">Alto</option>
     </select>
 
-    <label for="clientName">Nome do Cliente</label>
-    <input type="text" id="clientName" name="clientName" required />
+    <label for="clientId">Cliente</label>
+    <select id="clientId" name="clientId" required>
+        <option value="" disabled selected>Selecione o cliente</option>
+        <option value="1">Larissa</option>
+        <option value="2">Luana</option>
+    </select>
 
-    <label for="analystName">Nome do Analista</label>
-    <input type="text" id="analystName" name="analystName" required />
+    <label for="analystId">Analista</label>
+    <select id="analystId" name="analystId" required>
+        <option value="" disabled selected>Selecione o analista</option>
+        <option value="1">Gustavo</option>
+        <option value="2">Daniel</option>
+    </select>
 
     <button type="submit">Criar Chamado</button>
 </form>
 
 <div id="message"></div>
-
-<script>
-    const form = document.getElementById('ticketForm');
-    const messageDiv = document.getElementById('message');
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const data = {
-            ticketTitle: form.ticketTitle.value,
-            ticketBody: form.ticketBody.value,
-            ticketLevel: form.ticketLevel.value,
-            clientName: form.clientName.value,
-            analystName: form.analystName.value
-        };
-
-        try {
-            const response = await fetch('/api/tickets', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                messageDiv.style.color = 'green';
-                messageDiv.textContent = 'Chamado criado com sucesso!';
-                form.reset();
-            } else {
-                const errorData = await response.json();
-                messageDiv.style.color = 'red';
-                messageDiv.textContent = `Erro: ${errorData.message || 'Não foi possível criar o chamado.'}`;
-            }
-        } catch (error) {
-            messageDiv.style.color = 'red';
-            messageDiv.textContent = 'Erro de conexão. Tente novamente.';
-        }
-    });
-</script>
 
 </body>
 </html>

@@ -25,7 +25,7 @@ public class TicketController {
     private EmailService emailService;
 
     @PostMapping
-    public ResponseEntity<TicketReponseDTO> createTicket(@RequestBody TicketRequestDTO ticketDTO){
+    public ResponseEntity<TicketReponseDTO> createTicket(@ModelAttribute TicketRequestDTO ticketDTO){
         TicketReponseDTO createdTicket = ticketService.createTicket(ticketDTO);
         return ResponseEntity.ok(createdTicket);
     }
