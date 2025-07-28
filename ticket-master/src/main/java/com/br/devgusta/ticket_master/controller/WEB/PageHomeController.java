@@ -1,4 +1,4 @@
-package com.br.devgusta.ticket_master.controller.web;
+package com.br.devgusta.ticket_master.controller.WEB;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

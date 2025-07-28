@@ -1,4 +1,4 @@
-package com.br.devgusta.ticket_master.controller.api;
+package com.br.devgusta.ticket_master.controller.API;
 import com.br.devgusta.ticket_master.DTO.ClientRequestDTO;
 import com.br.devgusta.ticket_master.DTO.ClientResponseDTO;
 import com.br.devgusta.ticket_master.service.ClientService;
