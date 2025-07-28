@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Resultado da Criação do Chamado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 40px;
+            font-size: 18px;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #0078d7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="message" th:text="${message}">Mensagem aqui</div>
+<a href="/create-ticket.html">Criar outro chamado</a>
+</body>
+</html>

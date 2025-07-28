@@ -1,8 +1,7 @@
-package com.br.devgusta.ticket_master.controller;
+package com.br.devgusta.ticket_master.controller.api;
 
 import com.br.devgusta.ticket_master.DTO.AnalystRequestDTO;
 import com.br.devgusta.ticket_master.DTO.AnalystResponseDTO;
-import com.br.devgusta.ticket_master.DTO.ClientResponseDTO;
 import com.br.devgusta.ticket_master.service.AnalystService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

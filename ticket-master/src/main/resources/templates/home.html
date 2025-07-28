@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ticket Master - Home</title>
+    <style>
+        /* Reset básico */
+        * {
+          margin: 0; padding: 0; box-sizing: border-box;
+        }
+
+        body {
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          background:
+            radial-gradient(circle at top left, rgba(72,101,129,0.15), transparent 60%),
+            radial-gradient(circle at bottom right, rgba(36,59,83,0.12), transparent 70%),
+            linear-gradient(135deg, #f0f4f8, #d9e2ec);
+          color: #102a43;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          text-align: center;
+          padding: 20px;
+        }
+
+        h1 {
+          font-weight: 700;
+          font-size: 3rem;
+          margin-bottom: 2rem;
+          color: #243b53;
+          text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .choices {
+          display: flex;
+          gap: 2.5rem;
+          justify-content: center;
+          flex-wrap: wrap;
+          width: 100%;
+          max-width: 650px;
+        }
+
+        .choice-card {
+          background-color: #ffffff;
+          border: 2px solid #486581;
+          box-shadow: 0 4px 12px rgba(33, 49, 72, 0.1);
+          border-radius: 15px;
+          padding: 45px 35px;
+          width: 280px;
+          cursor: pointer;
+          transition: box-shadow 0.3s ease, transform 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-decoration: none;
+          color: #243b53;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .choice-card::after {
+          content: "";
+          position: absolute;
+          bottom: -20px;
+          left: -40%;
+          width: 160%;
+          height: 80px;
+          background: #486581;
+          opacity: 0.1;
+          transform: rotate(-25deg);
+          transition: opacity 0.3s ease;
+          z-index: 0;
+        }
+
+        .choice-card:hover::after {
+          opacity: 0.3;
+        }
+
+        .choice-card:hover {
+          box-shadow: 0 15px 30px rgba(33, 49, 72, 0.25);
+          transform: translateY(-7px);
+        }
+
+        .choice-card h2 {
+          font-size: 2rem;
+          margin-bottom: 12px;
+          font-weight: 700;
+          z-index: 1;
+          position: relative;
+        }
+
+        .choice-card p {
+          font-size: 1.1rem;
+          color: #627d98;
+          font-weight: 600;
+          z-index: 1;
+          position: relative;
+        }
+    </style>
+</head>
+<body>
+<h1>Ticket Master</h1>
+
+<div class="choices">
+    <a href="/tickets/create" class="choice-card">
+        <h2>Cliente</h2>
+        <p>Abrir Chamado</p>
+    </a>
+
+    <a href="/analista" class="choice-card">
+        <h2>Atendente</h2>
+        <p>Gerenciar Chamados</p>
+    </a>
+</div>
+</body>
+</html>

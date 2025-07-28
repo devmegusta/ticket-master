@@ -1,7 +1,7 @@
-package com.br.devgusta.ticket_master.controller;
+package com.br.devgusta.ticket_master.controller.api;
 import com.br.devgusta.ticket_master.DTO.TicketReponseDTO;
 import com.br.devgusta.ticket_master.DTO.TicketRequestDTO;
-import com.br.devgusta.ticket_master.model.Client;
+
 import com.br.devgusta.ticket_master.repository.ClientRepository;
 import com.br.devgusta.ticket_master.service.notification.EmailService;
 import com.br.devgusta.ticket_master.service.TicketService;
@@ -25,9 +25,12 @@ public class TicketController {
     private EmailService emailService;
 
     @PostMapping
+    @GetMapping("/tickets/create")
     public ResponseEntity<TicketReponseDTO> createTicket(@ModelAttribute TicketRequestDTO ticketDTO){
         TicketReponseDTO createdTicket = ticketService.createTicket(ticketDTO);
+
         return ResponseEntity.ok(createdTicket);
+
     }
 
     @GetMapping
