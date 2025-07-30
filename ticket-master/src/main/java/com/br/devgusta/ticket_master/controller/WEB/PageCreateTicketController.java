@@ -1,5 +1,4 @@
 package com.br.devgusta.ticket_master.controller.WEB;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PageCreateTicketController {
     @GetMapping("/tickets/create")
     public String showCreateTicketForm(Model model) {
-
         return "create-ticket";
     }
 }
