@@ -15,7 +15,7 @@
             color: #333;
         }
 
-        /* Botão PDF */
+        /* Botões de exportação */
         .export-btn {
             display: inline-block;
             padding: 10px 20px;
@@ -24,7 +24,12 @@
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+
+        .excel-btn {
+            background-color: #4CAF50;
         }
 
         table {
@@ -61,8 +66,9 @@
 
 <h1>Lista de Chamados</h1>
 
-
+<!-- Botões de exportação -->
 <a href="/export/pdf" target="_blank" class="export-btn">📄 Exportar para PDF</a>
+<a href="/export/excel" target="_blank" class="export-btn excel-btn">📊 Exportar para Excel</a>
 
 <table>
     <thead>
