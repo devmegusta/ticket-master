@@ -7,6 +7,7 @@ import com.br.devgusta.ticket_master.service.notification.EmailService;
 import com.br.devgusta.ticket_master.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,10 +34,11 @@ public class TicketController {
 
     }
 
-    @GetMapping
-    public ResponseEntity<List<TicketReponseDTO>> getAllTickets(){
+    @GetMapping("/analyst/home")
+    public String getAllTickets(Model model){
         List<TicketReponseDTO> tickets = ticketService.getAllTickets();
-        return ResponseEntity.ok(tickets);
+        model.addAttribute("chamados", tickets);
+        return "analyst-home";
 
     }
 
